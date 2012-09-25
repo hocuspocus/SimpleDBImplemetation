@@ -2,10 +2,10 @@
 	@C Source				:	In-memory Database
 	@Implementation notes:
 	@SET [name] [value]		:	Set a variable [name] to the value [value]. Neither variable names or values will ever contain spaces.
-    @GET [name]				:	Print out the value stored under the variable [name]. Print NULL if that variable name hasn't been set.
-    @UNSET [name]			:	Unset the variable [name]
-    @NUMEQUALTO [value]		:	Return the number of variables equal to [value]. If no values are equal, this should output 0.
-    @END					:	Exit the program
+    	@GET [name]				:	Print out the value stored under the variable [name]. Print NULL if that variable name hasn't been set.
+    	@UNSET [name]			:	Unset the variable [name]
+    	@NUMEQUALTO [value]		:	Return the number of variables equal to [value]. If no values are equal, this should output 0.
+    	@END					:	Exit the program
 	@BEGIN					:	Open a transactional block 
 	@ROLLBACK				:	Rollback all of the commands from the most recent transaction block. 
 								If no transactional block is open, print out INVALID ROLLBACK
@@ -81,47 +81,47 @@ void main(){
 			return;
 		}
 		else{
-			if(!strcmp(word,sCommands[0])){ 				//SET : Set variable to value
+			if(!strcmp(word,sCommands[0])){ 			//SET : Set variable to value
 				if((word = strtok(NULL,restrictedChars))!=NULL && (value = strtok(NULL,restrictedChars))!=NULL){ //Get each word by tokenizing the input
 					//printf("\n %d \n",txnBlockLevel);
-					if(txnBlockLevel>0){                                      //the >0 for txnBlockLevel indicates that BEGIN command has been called
+					if(txnBlockLevel>0){                    //the >0 for txnBlockLevel indicates that BEGIN command has been called
 						Top=push(Top,word,atoi(value),txnBlockLevel,rExists);         //finally store the new input in the stack
 						//printStack(Top);
 					}
-					set(head,word,atoi(value));                               //set the variable in the database
+					set(head,word,atoi(value));             //set the variable in the database
 				}
 				else error();
 			}
-			else if(!strcmp(word,sCommands[1])){ 				//GET : Set variable to value
+			else if(!strcmp(word,sCommands[1])){ 			//GET : Set variable to value
 				if((word = strtok(NULL,restrictedChars))!=NULL){
 					get(head->next,word);
 				}
 				else error();
 			}
-			else if(!strcmp(word,sCommands[2])){ 				//UNSET : Set variable to value
+			else if(!strcmp(word,sCommands[2])){ 			//UNSET : Set variable to value
 				if((word = strtok(NULL,restrictedChars))!=NULL){
 					unset(head,word);
 				}
 				else error();
 			} 
-			else if(!strcmp(word,sCommands[3])){ 				//NUMEQUALTO : Set variable to value
+			else if(!strcmp(word,sCommands[3])){ 			//NUMEQUALTO : Set variable to value
 				if((word = strtok(NULL,restrictedChars))!=NULL){
 					printf("Total : %d \n",numequalto(head,atoi(word)));
 				}
 				else error();
 			}
-			else if(!strcmp(word,sCommands[5])){ 				//Print all the variables and values in the memory
+			else if(!strcmp(word,sCommands[5])){ 			//Print all the variables and values in the memory
 				print(head->next);
 				printStack(Top);
 			}
-			else if(!strcmp(word,sCommands[6])){ 				//BEGIN Transactional Block
+			else if(!strcmp(word,sCommands[6])){ 			//BEGIN Transactional Block
 				txnBlockLevel++;
 			}
-			else if(!strcmp(word,sCommands[7])){ 				//ROLLBACK
+			else if(!strcmp(word,sCommands[7])){ 			//ROLLBACK
 				printf("List Rollback ---\n");
 				Top=rollback(Top);
 			}
-			else if(!strcmp(word,sCommands[8])){ 				//COMMIT
+			else if(!strcmp(word,sCommands[8])){ 			//COMMIT
 				txnBlockLevel=0;
 				if(Top== NULL ){
 					printf("EMPTY\n");
@@ -132,7 +132,7 @@ void main(){
 				   Top = next;
 				}
 			}
-			else if(!strcmp(word,sCommands[9])){ 				//Supported Commands List 
+			else if(!strcmp(word,sCommands[9])){ 			//Supported Commands List 
 				printf("Supported Commands:\n");
 				while(*chandle){
 					printf("    >   %s \n",*chandle);
